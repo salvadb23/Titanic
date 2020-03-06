@@ -19,4 +19,23 @@ let example = [7,10,1,2,7,7,1]
 
 console.log(reduceCapacity(example))
 
-let
+let compressWord = (string, n) => {
+    let stack = [];
+    let characters = string.split("")
+    characters.forEach((char, i, arr) => {
+      stack.push(char)
+      if(stack.length >= n){
+        let repeat = char.repeat(n)
+        let check = stack.slice(stack.length - n, stack.length).join("")
+        if(check == repeat){
+          stack.splice(stack.length - n, stack.length)
+        } 
+      }
+    })
+    return stack.join("")
+  }
+  
+  let example = "abababaab"
+  let n = 2
+  
+  console.log(compressWord(example, n))

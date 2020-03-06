@@ -12,8 +12,34 @@
             Titanic Data
             <i class="fas fa-ship"></i>
         </h1>
+        <button onclick="filterFemale()">Men</button>
+        <button onclick="filterMale()" class="women">Women</button>
+        <button onclick="filterFirstClass()" class="women">1st Class</button>
+        <button onclick="filterSecondClass()" class="women">2nd Class</button>
+        <button onclick="filterThirdClass()" class="women">3rd Class</button>
+        <div style="font-size: 20px; color: white; font-family: Helvetica; display: flex; margin-left: 100px; margin-top: 20px;">Total:<div class="total" style="margin-left: 5px;">891</div></div>
         <div id="container" style="display: flex; flex-wrap: wrap; padding: 50px; padding-top: 10px; align-items: center; justify-content: center;">
         </div>
         <script src="titanic.js"></script>
     </body>
+    <style>
+        button {
+            margin-left: 100px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: transparent;
+            font-size: 20px;
+            color: white;
+            
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .women {
+            margin-left: 5px;
+        }
+    </style>
 </html>

@@ -126,8 +126,24 @@ let render = async() => {
     }
 
     passengers.forEach((passenger) => {
-        let child = document.createElement('i');
+        console.log(passengers.length)
+        let child = document.createElement('div');
+        child.classList.add("icon")
         el.appendChild(child)
+        let rank = document.createElement("div")
+        child.appendChild(rank)
+        if(passenger.pclass == 3){
+            child.classList.add("3")
+            rank.innerHTML = "$"
+        } else if (passenger.pclass == 2){
+            child.classList.add("2")
+            rank.innerHTML = "$$"
+        } else {
+            child.classList.add("1")
+            rank.innerHTML = "$$$"
+        }
+        rank.style.fontSize = "15px"
+        rank.style.marginTop = "10px"
         if(passenger.sex == "male"){
             child.classList.add("fa")
             child.classList.add("fa-male")
@@ -139,6 +155,8 @@ let render = async() => {
         // child.style.margin = "5px"
         // child.style.backgroundColor = passenger.sex === 'male' ? maleClassObj[passenger.pclass] : femaleClassObj[passenger.pclass]
         // child.style.borderRadius = passenger.survived === 'No' ? '50px' : '0px'
+        child.style.display = "flex"
+        child.style.flexDirection = "column"
         child.style.height = "30px"
         child.style.width = "30px"
         child.style.color = passenger.sex === "male" ? "#AACCFF" : "#e9b2ff"
@@ -207,6 +225,62 @@ let sortClass = async(pclass) => {
 let undefinedEmbark = async() => {
     let json = await (await fetch('titanic-passengers.json')).json()
     return json.filter(pass => pass.fields.embarked == undefined)
+}
+
+let filterMale = () => {
+    let total = document.getElementsByClassName("total")[0]
+    let men = [...document.getElementsByClassName("fa-male")]
+    let women = [...document.getElementsByClassName("fa-female")]
+    total.innerHTML = women.length
+    women.forEach((elem) => {
+        elem.style.opacity = 1
+    })
+    men.forEach((elem) => {
+        elem.style.opacity = 0.2
+    })
+}
+
+let filterFemale = () => {
+    let total = document.getElementsByClassName("total")[0]
+    let men = [...document.getElementsByClassName("fa-male")]
+    let women = [...document.getElementsByClassName("fa-female")]
+    total.innerHTML = men.length
+    men.forEach((elem) => {
+        elem.style.opacity = 1
+    })
+    women.forEach((elem) => {
+        elem.style.opacity = 0.2
+    })
+}
+
+let filterFirstClass = () => {
+    let icon = [...document.getElementsByClassName("icon")]
+    icon.forEach(elem => elem.style.opacity = 1)
+    let rank = [...document.getElementsByClassName("1")]
+    let total = document.getElementsByClassName("total")[0]
+    total.innerHTML = rank.length
+    let others = [...document.getElementsByClassName("2"), ...document.getElementsByClassName("3")]
+    others.forEach(elem => elem.style.opacity = .2)
+}
+
+let filterSecondClass = () => {
+    let icon = [...document.getElementsByClassName("icon")]
+    icon.forEach(elem => elem.style.opacity = 1)
+    let rank = [...document.getElementsByClassName("2")]
+    let total = document.getElementsByClassName("total")[0]
+    total.innerHTML = rank.length
+    let others = [...document.getElementsByClassName("1"), ...document.getElementsByClassName("3")]
+    others.forEach(elem => elem.style.opacity = .2)
+}
+
+let filterThirdClass = () => {
+    let icon = [...document.getElementsByClassName("icon")]
+    icon.forEach(elem => elem.style.opacity = 1)
+    let rank = [...document.getElementsByClassName("3")]
+    let total = document.getElementsByClassName("total")[0]
+    total.innerHTML = rank.length
+    let others = [...document.getElementsByClassName("1"), ...document.getElementsByClassName("2")]
+    others.forEach(elem => elem.style.opacity = .2)
 }
 
 render()
